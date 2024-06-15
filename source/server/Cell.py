@@ -1,5 +1,5 @@
 class Cell:
-    def __init__(self, id: int, type: str, neighbours: list, owner: int):
+    def __init__(self, id: int, type: str, neighbours: list, owner: str):
         self.id = id
         self.type = type
         self.neighbours = neighbours

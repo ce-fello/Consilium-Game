@@ -1,4 +1,4 @@
-import Economics
+from source.server.Economics import Economics
 
 
 class State:
@@ -13,5 +13,5 @@ class State:
         self.current_effects = current_effects
 
     def __str__(self):
-        return (f"HEAD: {self.head} NAME: {self.name} TERRITORY: {self.territory} ECONOMICS: {self.economics} "
-                f"GDP: {self.gdp} POPULATION: {self.population}")
+        return (f"HEAD: {self.head} NAME: {self.name} TERRITORY: {self.territory} "
+                f"ECONOMICS: {self.economics.__str__()} GDP: {self.gdp} POPULATION: {self.population}")

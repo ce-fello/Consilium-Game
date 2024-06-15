@@ -4,7 +4,7 @@ from tkinter import *
 
 root = CTk()
 
-root.title('Conlisium')
+root.title('Consilium')
 root.geometry('600x350')
 root.attributes('-fullscreen', True)
 

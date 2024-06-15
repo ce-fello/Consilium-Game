@@ -1,4 +1,4 @@
-import Sector
+from source.server.Sector import Sector
 
 
 class Economics:

@@ -1,4 +1,4 @@
-import Cell
+from source.server.Cell import Cell
 
 
 class Map:
