@@ -1,6 +1,5 @@
 from customtkinter import *
 from tkinter import *
-from idlelib.tooltip import Hovertip
 from tktooltip import ToolTip  # pip install tkinter-tooltip
 from source.server.Player import Player
 from source.server.Economics import Economics
@@ -11,7 +10,7 @@ class GameUI:
         self.player = player
         self.root = CTk()
 
-        self.root.title('Conlisium')
+        self.root.title('Consilium')
         self.root.geometry('600x350')
         self.root.attributes('-fullscreen', True)
 
