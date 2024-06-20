@@ -4,7 +4,7 @@ from idlelib.tooltip import Hovertip
 from tktooltip import ToolTip  # pip install tkinter-tooltip
 from source.server.Player import Player
 from source.server.Economics import Economics
-from decisions import DecisionsGUI
+from decisions_gui import DecisionsGUI
 
 
 class GameUI:

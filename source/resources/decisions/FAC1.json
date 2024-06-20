@@ -1,0 +1,50 @@
+{
+  "name": "fight against corruption",
+  "name_ru": "борьба с коррупцией",
+  "conditions": [
+    {
+      "sector": "education",
+      "sector_ru": "Образование",
+      "value": "",
+      "k_buff": "<1.2",
+      "k_debuff": ">0.8"
+    },
+    {
+      "sector": "healthcare",
+      "sector_ru": "Здравоохранение",
+      "value": "",
+      "k_buff": "<1.2",
+      "k_debuff": ">0.8"
+    },
+    {
+      "sector": "military",
+      "sector_ru": "Военные расходы",
+      "value": "",
+      "k_buff": "<1.2",
+      "k_debuff": ">0.8"
+    }
+  ],
+  "consequences": [
+    {
+      "sector": "education",
+      "sector_ru": "Образование",
+      "value": -1,
+      "k_buff": 0.05,
+      "k_debuff": -0.05
+    },
+    {
+      "sector": "healthcare",
+      "sector_ru": "Здравоохранение",
+      "value": -1,
+      "k_buff": 0.05,
+      "k_debuff": -0.05
+    },
+    {
+      "sector": "military",
+      "sector_ru": "Военные расходы",
+      "value": -1,
+      "k_buff": 0.05,
+      "k_debuff": -0.05
+    }
+  ]
+}

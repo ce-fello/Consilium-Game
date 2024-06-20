@@ -1,4 +1,5 @@
 from customtkinter import *
+from source.server.Decision import Decision
 from tkinter import *
 
 
@@ -80,11 +81,13 @@ class DecisionsGUI:
     def show_politic_decisions(self):
         self.destroy_reference_data()
         self.reference_data.append(self.create_nice_label('Политическое решения', 40, 320))
-        for i in range(7):
-            self.reference_data.append(self.create_nice_button('Политическое решение ' + str(i), None, None, 40, 300, 18))
+        FAC1 = Decision("../resources/decisions/FAC1.json", self.player)
+        FAC1_button = self.create_nice_button(FAC1.name_ru, FAC1.apply, None, 40, 300, 18)
+        self.tooltip(FAC1_button, FAC1.tooltip, False)
+        self.reference_data.append(FAC1_button)
         self.canvas.create_window(1490, 120, anchor="nw", window=self.reference_data[0])
         for i in range(1, len(self.reference_data)):
-            self.canvas.create_window(1500, 120 + i * 50, anchor="nw", window=self.reference_data[i])
+            self.canvas.create_window(1400, 120 + i * 50, anchor="nw", window=self.reference_data[i])
 
     def government_button(self):
         photo = PhotoImage(file='../resources/images/иконка государства 16-06.png')
