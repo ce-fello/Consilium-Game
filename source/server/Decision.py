@@ -42,17 +42,18 @@ class Decision:
         return True
 
     def apply(self):
-        for i in self.data["consequences"]:
-            sector = self.player.economics.sectors[i["sector"]]
-            if i["value"] > 0:
-                sector.value += i["value"] * sector.k_buff
-            else:
-                sector.value += i["value"] * sector.k_debuff
-            sector.k_buff += float(i["k_buff"])
-            sector.k_debuff += float(i["k_debuff"])
-            sector.value = round(sector.value, 2)
-            sector.k_buff = round(sector.k_buff, 2)
-            sector.k_debuff = round(sector.k_debuff, 2)
+        if self.available():
+            for i in self.data["consequences"]:
+                sector = self.player.economics.sectors[i["sector"]]
+                if i["value"] > 0:
+                    sector.value += i["value"] * sector.k_buff
+                else:
+                    sector.value += i["value"] * sector.k_debuff
+                sector.k_buff += float(i["k_buff"])
+                sector.k_debuff += float(i["k_debuff"])
+                sector.value = round(sector.value, 2)
+                sector.k_buff = round(sector.k_buff, 2)
+                sector.k_debuff = round(sector.k_debuff, 2)
 
     def create_tooltip(self):
         text_tooltip = 'Условия решения\n'

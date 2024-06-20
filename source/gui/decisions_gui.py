@@ -99,18 +99,34 @@ class DecisionsGUI:
     def show_government_information(self):
         self.destroy_reference_data()
         economics = self.player.economics
+        self.update_proportions()
         self.reference_data.append(self.create_nice_label('Информация о государстве', 40, 420))
         self.reference_data.append(self.create_nice_label('Имя : ' + self.player.name, 40, 310))
         for i in range(len(economics.sectors_name_ru)):
+            sector = economics.sectors[economics.sectors_name[i]]
             self.reference_data.append(self.create_nice_label(economics.sectors_name_ru[i], 40, 250))
-            value = self.create_nice_button(economics.sectors[economics.sectors_name[i]].value, None, None, 40, 50, 18)
-            tooltip_text = str(economics.sectors[economics.sectors_name[i]].k_buff) + ' boost \n' + \
-                           str(economics.sectors[economics.sectors_name[i]].k_debuff) + ' retard'
+            value = self.create_nice_button(sector.value, None, None, 40, 50, 18)
+            proportion = self.create_nice_button(str(sector.proportion) + '%', None, None, 40, 50, 18)
+            tooltip_text = str(sector.k_buff) + ' +\n' + \
+                           str(sector.k_debuff) + ' -'
             self.tooltip(value, tooltip_text, False)
+            self.reference_data.append(proportion)
             self.reference_data.append(value)
-        self.canvas.create_window(1450, 120, anchor="nw", window=self.reference_data[0])
-        self.canvas.create_window(1500, 170, anchor="nw", window=self.reference_data[1])
-        for i in range(2, len(self.reference_data), 2):
-            self.canvas.create_window(1500, 170 + i * 25, anchor="nw", window=self.reference_data[i])
-            self.canvas.create_window(1760, 170 + i * 25, anchor="nw", window=self.reference_data[i + 1])
+        self.canvas.create_window(1400, 120, anchor="nw", window=self.reference_data[0])
+        self.canvas.create_window(1450, 170, anchor="nw", window=self.reference_data[1])
+        for i in range(2, len(self.reference_data), 3):
+            self.canvas.create_window(1400, 220 + (i - 2) / 3 * 50, anchor="nw", window=self.reference_data[i])
+            self.canvas.create_window(1660, 220 + (i - 2) / 3 * 50, anchor="nw", window=self.reference_data[i + 1])
+            self.canvas.create_window(1740, 220 + (i - 2) / 3 * 50, anchor="nw", window=self.reference_data[i + 2])
+
+    def update_proportions(self):
+        economics = self.player.economics
+        capacity = 0
+        for i in range(len(economics.sectors_name_ru)):
+            sector = economics.sectors[economics.sectors_name[i]]
+            capacity += sector.value
+        for i in range(len(economics.sectors_name_ru)):
+            sector = economics.sectors[economics.sectors_name[i]]
+            sector.proportion = round(round(sector.value / capacity, 3) * 100, 2)
+        economics.capacity = capacity
 

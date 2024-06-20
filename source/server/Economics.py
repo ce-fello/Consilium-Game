@@ -7,7 +7,11 @@ class Economics:
         self.sectors_name_ru = ['Сфера услуг', 'Промышленность', 'Образование', 'Здравоохранение',
                                 'Военные расходы', 'Ресурсы']
         self.sectors = {}
+        self.capacity = sum(sectors_value)
         for i in range(len(self.sectors_name)):
+            sector = Sector(self.sectors_name[i], sectors_value[i], sectors_k_buff[i],
+                            sectors_k_debuff[i])
+            sector.proportion = round(sector.value / self.capacity, 3) * 100
             self.sectors[self.sectors_name[i]] = Sector(self.sectors_name[i], sectors_value[i], sectors_k_buff[i],
                                                         sectors_k_debuff[i])
 
