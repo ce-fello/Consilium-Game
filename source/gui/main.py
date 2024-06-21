@@ -40,7 +40,7 @@ class GameUI:
 sectors_value = [100, 30, 10, 10, 25, 30]
 sectors_k_buff = [1, 1, 1, 1, 1, 0.8]
 sectors_k_debuff = [0.9, 0.9, 0.9, 1.1, 1.1, 0.9]
-example_player = Player(0, '83 ПО ИНФЕ', Economics(sectors_value, sectors_k_buff, sectors_k_debuff))
+example_player = Player(0, '83 ПО ИНФЕ', 50, Economics(sectors_value, sectors_k_buff, sectors_k_debuff))
 game = GameUI(example_player)
 
 

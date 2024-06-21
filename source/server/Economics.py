@@ -6,6 +6,7 @@ class Economics:
         self.sectors_name = ['services', 'industry', 'education', 'healthcare', 'military', 'resources']
         self.sectors_name_ru = ['Сфера услуг', 'Промышленность', 'Образование', 'Здравоохранение',
                                 'Военные расходы', 'Ресурсы']
+        self.sectors_codes = ['🛒', '🔨', '📚', '⛑', '💀', '💎']
         self.sectors = {}
         self.capacity = sum(sectors_value)
         for i in range(len(self.sectors_name)):

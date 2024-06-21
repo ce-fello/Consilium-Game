@@ -3,22 +3,27 @@
   "name_ru": "борьба с коррупцией",
   "conditions": [
     {
+      "sector": "stability",
+      "sector_code": "⚖",
+      "value": ""
+    },
+    {
       "sector": "education",
-      "sector_ru": "Образование",
+      "sector_code": "\uD83D\uDCDA",
       "value": ">5",
       "k_buff": "<1.2",
       "k_debuff": ">0.8"
     },
     {
       "sector": "healthcare",
-      "sector_ru": "Здравоохранение",
+      "sector_code": "⛑",
       "value": ">5",
       "k_buff": "<1.2",
       "k_debuff": ">0.8"
     },
     {
       "sector": "military",
-      "sector_ru": "Военные расходы",
+      "sector_code": "\uD83D\uDC80",
       "value": ">5",
       "k_buff": "<1.2",
       "k_debuff": ">0.8"
@@ -26,22 +31,27 @@
   ],
   "consequences": [
     {
+      "sector": "stability",
+      "sector_code": "⚖",
+      "value": 1
+    },
+    {
       "sector": "education",
-      "sector_ru": "Образование",
+      "sector_code": "\uD83D\uDCDA",
       "value": -1,
       "k_buff": 0.05,
       "k_debuff": -0.05
     },
     {
       "sector": "healthcare",
-      "sector_ru": "Здравоохранение",
+      "sector_code": "⛑",
       "value": -1,
       "k_buff": 0.05,
       "k_debuff": -0.05
     },
     {
       "sector": "military",
-      "sector_ru": "Военные расходы",
+      "sector_code": "\uD83D\uDC80",
       "value": -1,
       "k_buff": 0.05,
       "k_debuff": -0.05

@@ -10,10 +10,10 @@ class DecisionsGUI:
         self.canvas = canvas
         self.player = player
 
-    def pop_tooltip(self, wdgt, txt, view=True):
+    def pop_tooltip(self, wdgt, txt, view=True, font=10):
         pop = Toplevel(wdgt)
         pop.overrideredirect(True)
-        Label(pop, text=txt, font=('Bookman Old Style', 10), bg='#ECE2AE', borderwidth=2).pack()
+        Label(pop, text=txt, font=('Bookman Old Style', font), bg='#ECE2AE', borderwidth=2).pack()
         wdgt.bind('<Leave>', lambda x: pop.destroy())
         if view:
             x_center = wdgt.winfo_rootx() - 20
@@ -23,8 +23,8 @@ class DecisionsGUI:
             y_center = wdgt.winfo_rooty()
         pop.geometry(f"+{x_center}+{y_center}")
 
-    def tooltip(self, wdgt, txt, view=True):
-        wdgt.bind('<Enter>', lambda x: self.pop_tooltip(wdgt, txt, view))
+    def tooltip(self, wdgt, txt, view=True, font=10):
+        wdgt.bind('<Enter>', lambda x: self.pop_tooltip(wdgt, txt, view, font))
 
     def destroy_reference_data(self):
         if len(self.reference_data) != 0:
@@ -83,7 +83,7 @@ class DecisionsGUI:
         self.reference_data.append(self.create_nice_label('Политическое решения', 40, 320))
         FAC1 = Decision("../resources/decisions/FAC1.json", self.player)
         FAC1_button = self.create_nice_button(FAC1.name_ru, FAC1.apply, None, 40, 300, 18)
-        self.tooltip(FAC1_button, FAC1.tooltip, False)
+        self.tooltip(FAC1_button, FAC1.tooltip, False, 14)
         self.reference_data.append(FAC1_button)
         self.canvas.create_window(1490, 120, anchor="nw", window=self.reference_data[0])
         for i in range(1, len(self.reference_data)):
@@ -102,22 +102,25 @@ class DecisionsGUI:
         self.update_proportions()
         self.reference_data.append(self.create_nice_label('Информация о государстве', 40, 420))
         self.reference_data.append(self.create_nice_label('Имя : ' + self.player.name, 40, 310))
+        self.reference_data.append(self.create_nice_label('⚖Стабильность ' + str(self.player.stability) + '%', 40, 310))
         for i in range(len(economics.sectors_name_ru)):
             sector = economics.sectors[economics.sectors_name[i]]
-            self.reference_data.append(self.create_nice_label(economics.sectors_name_ru[i], 40, 250))
+            self.reference_data.append(self.create_nice_label(economics.sectors_codes[i] +
+                                                              economics.sectors_name_ru[i], 40, 250))
             value = self.create_nice_button(sector.value, None, None, 40, 50, 18)
             proportion = self.create_nice_button(str(sector.proportion) + '%', None, None, 40, 50, 18)
-            tooltip_text = str(sector.k_buff) + ' +\n' + \
-                           str(sector.k_debuff) + ' -'
+            tooltip_text = str(sector.k_buff) + ' ⌃\n' + \
+                           str(sector.k_debuff) + ' ⌄'
             self.tooltip(value, tooltip_text, False)
             self.reference_data.append(proportion)
             self.reference_data.append(value)
         self.canvas.create_window(1400, 120, anchor="nw", window=self.reference_data[0])
         self.canvas.create_window(1450, 170, anchor="nw", window=self.reference_data[1])
-        for i in range(2, len(self.reference_data), 3):
-            self.canvas.create_window(1400, 220 + (i - 2) / 3 * 50, anchor="nw", window=self.reference_data[i])
-            self.canvas.create_window(1660, 220 + (i - 2) / 3 * 50, anchor="nw", window=self.reference_data[i + 1])
-            self.canvas.create_window(1740, 220 + (i - 2) / 3 * 50, anchor="nw", window=self.reference_data[i + 2])
+        self.canvas.create_window(1450, 220, anchor="nw", window=self.reference_data[2])
+        for i in range(3, len(self.reference_data), 3):
+            self.canvas.create_window(1400, 270 + (i - 3) / 3 * 50, anchor="nw", window=self.reference_data[i])
+            self.canvas.create_window(1660, 270 + (i - 3) / 3 * 50, anchor="nw", window=self.reference_data[i + 1])
+            self.canvas.create_window(1740, 270 + (i - 3) / 3 * 50, anchor="nw", window=self.reference_data[i + 2])
 
     def update_proportions(self):
         economics = self.player.economics
@@ -127,6 +130,6 @@ class DecisionsGUI:
             capacity += sector.value
         for i in range(len(economics.sectors_name_ru)):
             sector = economics.sectors[economics.sectors_name[i]]
-            sector.proportion = round(round(sector.value / capacity, 3) * 100, 2)
+            sector.proportion = round(round(sector.value / capacity, 4) * 100, 2)
         economics.capacity = capacity
 
