@@ -1,25 +1,17 @@
 {
-  "name": "invest in education",
-  "name_ru": "инвестировать в образование",
+  "name": "Reduce the tax on mining",
+  "name_ru": "уменьшить налог на добычу ископаемых",
   "conditions": [
     {
       "sector": "stability",
       "sector_code": "⚖",
-      "value": ""
+      "value": ">40"
     },
     {
-      "sector": "services",
-      "sector_code": "\uD83D\uDED2",
-      "proportion": ">30",
-      "value": ">50",
-      "k_buff": "",
-      "k_debuff": ""
-    },
-    {
-      "sector": "education",
-      "sector_code": "\uD83D\uDCDA",
-      "proportion": "<10",
-      "value": ">5",
+      "sector": "resources",
+      "sector_code": "\uD83D\uDC8E",
+      "proportion": "<20",
+      "value": "",
       "k_buff": "",
       "k_debuff": ""
     }
@@ -28,12 +20,12 @@
     {
       "sector": "stability",
       "sector_code": "⚖",
-      "value": 1
+      "value": -5
     },
     {
       "sector": "services",
       "sector_code": "\uD83D\uDED2",
-      "value": -5,
+      "value": 0,
       "k_buff": 0.05,
       "k_debuff": 0
     },
@@ -47,21 +39,21 @@
     {
       "sector": "education",
       "sector_code": "\uD83D\uDCDA",
-      "value": 3,
+      "value": -1,
       "k_buff": 0,
-      "k_debuff": 0
+      "k_debuff": 0.05
     },
     {
       "sector": "healthcare",
-      "sector_code": "\uD83D\uDCDA",
-      "value": 0,
-      "k_buff": 0.05,
-      "k_debuff": 0
+      "sector_code": "⛑",
+      "value": -1,
+      "k_buff": 0,
+      "k_debuff": 0.05
     },
     {
       "sector": "resources",
       "sector_code": "\uD83D\uDC8E",
-      "value": 0,
+      "value": 5,
       "k_buff": 0.05,
       "k_debuff": 0
     }
