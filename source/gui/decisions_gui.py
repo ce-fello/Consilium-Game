@@ -1,6 +1,8 @@
 from customtkinter import *
 from source.server.Decision import Decision
 from tkinter import *
+from os import listdir
+from os.path import isfile, join
 
 
 class DecisionsGUI:
@@ -65,12 +67,17 @@ class DecisionsGUI:
 
     def show_economics_decisions(self):
         self.destroy_reference_data()
+        route = "../resources/decisions/economics/"
         self.reference_data.append(self.create_nice_label('Экономические решения', 40, 320))
-        for i in range(5):
-            self.reference_data.append(self.create_nice_button('Экономическое решение ' + str(i), None, None, 40, 300, 18))
+        decisions_names = [f for f in listdir(route) if isfile(join(route, f))]
+        for i in decisions_names:
+            decision = Decision(route + i, self.player)
+            decision_button = self.create_nice_button(decision.name_ru, decision.apply, None, 40, 300, 18)
+            self.tooltip(decision_button, decision.tooltip, False, 14)
+            self.reference_data.append(decision_button)
         self.canvas.create_window(1490, 120, anchor="nw", window=self.reference_data[0])
         for i in range(1, len(self.reference_data)):
-            self.canvas.create_window(1500, 120 + i * 50, anchor="nw", window=self.reference_data[i])
+            self.canvas.create_window(1400, 120 + i * 50, anchor="nw", window=self.reference_data[i])
 
     def politic_button(self):
         photo = PhotoImage(file='../resources/images/иконка политики 15-06.png')
@@ -80,11 +87,14 @@ class DecisionsGUI:
 
     def show_politic_decisions(self):
         self.destroy_reference_data()
+        route = "../resources/decisions/politics/"
         self.reference_data.append(self.create_nice_label('Политическое решения', 40, 320))
-        FAC1 = Decision("../resources/decisions/FAC1.json", self.player)
-        FAC1_button = self.create_nice_button(FAC1.name_ru, FAC1.apply, None, 40, 300, 18)
-        self.tooltip(FAC1_button, FAC1.tooltip, False, 14)
-        self.reference_data.append(FAC1_button)
+        decisions_names = [f for f in listdir(route) if isfile(join(route, f))]
+        for i in decisions_names:
+            decision = Decision(route + i, self.player)
+            decision_button = self.create_nice_button(decision.name_ru, decision.apply, None, 40, 300, 18)
+            self.tooltip(decision_button, decision.tooltip, False, 14)
+            self.reference_data.append(decision_button)
         self.canvas.create_window(1490, 120, anchor="nw", window=self.reference_data[0])
         for i in range(1, len(self.reference_data)):
             self.canvas.create_window(1400, 120 + i * 50, anchor="nw", window=self.reference_data[i])

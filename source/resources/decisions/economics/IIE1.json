@@ -1,0 +1,48 @@
+{
+  "name": "invest in education",
+  "name_ru": "инвестировать в образование",
+  "conditions": [
+    {
+      "sector": "stability",
+      "sector_code": "⚖",
+      "value": ""
+    },
+    {
+      "sector": "services",
+      "sector_code": "\uD83D\uDED2",
+      "proportion": "",
+      "value": ">50",
+      "k_buff": "",
+      "k_debuff": ""
+    },
+    {
+      "sector": "education",
+      "sector_code": "\uD83D\uDCDA",
+      "proportion": "<15",
+      "value": "",
+      "k_buff": "",
+      "k_debuff": ""
+    }
+  ],
+  "consequences": [
+    {
+      "sector": "stability",
+      "sector_code": "⚖",
+      "value": 1
+    },
+    {
+      "sector": "services",
+      "sector_code": "\uD83D\uDED2",
+      "value": -5,
+      "k_buff": 0,
+      "k_debuff": 0
+    },
+    {
+      "sector": "education",
+      "sector_code": "\uD83D\uDCDA",
+      "value": 3,
+      "k_buff": 0.1,
+      "k_debuff": 0
+    }
+  ]
+}

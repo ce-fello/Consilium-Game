@@ -27,6 +27,13 @@ class Decision:
                 if self.player.stability >= float(stability_condition['value'][1:]):
                     return False
         for i in self.data["conditions"][1:]:
+            if i["proportion"] != "":
+                if i["proportion"][0] == ">":
+                    if self.player.economics.sectors[i["sector"]].proportion <= float(i["proportion"][1:]):
+                        return False
+                else:
+                    if self.player.economics.sectors[i["sector"]].proportion >= float(i["proportion"][1:]):
+                        return False
             if i["value"] != "":
                 if i["value"][0] == ">":
                     if self.player.economics.sectors[i["sector"]].value <= float(i["value"][1:]):
@@ -74,6 +81,8 @@ class Decision:
             text_tooltip += f' {stability_condition["sector_code"]}   {stability_condition["value"]}\n'
             text_tooltip += '---------\n'
         for i in self.data["conditions"][1:]:
+            if i['proportion'] != "":
+                text_tooltip += f' {i["sector_code"]}  {i["proportion"]}%\n'
             if i["value"] != "":
                 text_tooltip += f' {i["sector_code"]}   {i["value"]}\n'
             if i["k_buff"] != "":
@@ -100,7 +109,7 @@ class Decision:
                     text_tooltip += f' {i["sector_code"]}⌃ +{i["k_buff"]}\n'
                 else:
                     text_tooltip += f' {i["sector_code"]}⌃ {i["k_buff"]}\n'
-            if i["k_buff"] != 0:
+            if i["k_debuff"] != 0:
                 if i['k_debuff'] > 0:
                     text_tooltip += f' {i["sector_code"]}⌄ +{i["k_debuff"]}\n'
                 else:
