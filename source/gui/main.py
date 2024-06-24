@@ -13,7 +13,7 @@ class GameUI:
         self.player = player
         self.root = CTk()
 
-        self.root.title('Conlisium')
+        self.root.title('Consilium')
         self.root.geometry('600x350')
         self.root.attributes('-fullscreen', True)
 

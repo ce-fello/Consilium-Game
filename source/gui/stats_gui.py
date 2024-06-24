@@ -21,13 +21,13 @@ class StatsGUI:
         second_photo = PhotoImage(file=f'../resources/images/numbers/{str(self.player.stability)[1]}.png')
         third_photo = PhotoImage(file=f'../resources/images/numbers/%.png')
 
-        self.canvas.create_window(100, 10, anchor="nw",
+        self.canvas.create_window(500, 10, anchor="nw",
                                   window=self.standard.create_nice_no_hover_button("", None, stability_photo, 80, 80))
-        self.canvas.create_window(180, 10, anchor="nw",
+        self.canvas.create_window(580, 10, anchor="nw",
                                   window=self.standard.create_nice_no_hover_button("", None, first_photo, 80, 40))
-        self.canvas.create_window(220, 10, anchor="nw",
+        self.canvas.create_window(620, 10, anchor="nw",
                                   window=self.standard.create_nice_no_hover_button("", None, second_photo, 80, 40))
-        self.canvas.create_window(260, 10, anchor="nw",
+        self.canvas.create_window(660, 10, anchor="nw",
                                   window=self.standard.create_nice_no_hover_button("", None, third_photo, 80, 40))
 
     def show_budget(self):
@@ -42,11 +42,11 @@ class StatsGUI:
             else:
                 budget_photos.append(PhotoImage(file=f'../resources/images/numbers/dot.png'))
 
-        self.canvas.create_window(330, 10, anchor="nw",
+        self.canvas.create_window(1000, 10, anchor="nw",
                                   window=self.standard.create_nice_no_hover_button("", None, stability_photo, 80,
                                                                                    80))
         for i in range(len(budget_photos)):
-            self.canvas.create_window(410 + 40 * i, 10, anchor="nw",
+            self.canvas.create_window(1080 + 40 * i, 10, anchor="nw",
                                       window=self.standard.create_nice_no_hover_button("", None, budget_photos[i], 80, 40))
 
 
