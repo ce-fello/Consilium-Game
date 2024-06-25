@@ -13,41 +13,34 @@ class StatsGUI:
         self.standard = StandardFunctions(self.root)
         self.show_stability()
         self.show_budget()
+        self.show_close()
 
     def show_stability(self):
         stability_photo = PhotoImage(file='../resources/images/scales_icon.png')
 
-        first_photo = PhotoImage(file=f'../resources/images/numbers/{str(self.player.stability)[0]}.png')
-        second_photo = PhotoImage(file=f'../resources/images/numbers/{str(self.player.stability)[1]}.png')
-        third_photo = PhotoImage(file=f'../resources/images/numbers/%.png')
+        stability_button = self.standard.create_nice_button(str(self.player.stability) + '%', None, stability_photo, 80, 180)
 
-        self.canvas.create_window(500, 10, anchor="nw",
-                                  window=self.standard.create_nice_no_hover_button("", None, stability_photo, 80, 80))
-        self.canvas.create_window(580, 10, anchor="nw",
-                                  window=self.standard.create_nice_no_hover_button("", None, first_photo, 80, 40))
-        self.canvas.create_window(620, 10, anchor="nw",
-                                  window=self.standard.create_nice_no_hover_button("", None, second_photo, 80, 40))
-        self.canvas.create_window(660, 10, anchor="nw",
-                                  window=self.standard.create_nice_no_hover_button("", None, third_photo, 80, 40))
+        self.canvas.create_window(570, 10, anchor="nw", window=stability_button)
 
     def show_budget(self):
-        stability_photo = PhotoImage(file='../resources/images/budget_icon.png')
+        budget_photo = PhotoImage(file='../resources/images/budget_icon.png')
+
         budget = 0
         for i in self.player.economics.sectors_name:
             budget += self.player.economics.sectors[i].value
-        budget_photos = []
-        for i in str(budget):
-            if i != '.':
-                budget_photos.append(PhotoImage(file=f'../resources/images/numbers/{i}.png'))
-            else:
-                budget_photos.append(PhotoImage(file=f'../resources/images/numbers/dot.png'))
 
-        self.canvas.create_window(1000, 10, anchor="nw",
-                                  window=self.standard.create_nice_no_hover_button("", None, stability_photo, 80,
-                                                                                   80))
-        for i in range(len(budget_photos)):
-            self.canvas.create_window(1080 + 40 * i, 10, anchor="nw",
-                                      window=self.standard.create_nice_no_hover_button("", None, budget_photos[i], 80, 40))
+        budget_button = self.standard.create_nice_button(str(budget) + '💰', None, budget_photo, 80, 180)
+
+        self.canvas.create_window(1200, 10, anchor='nw', window=budget_button)
+
+    def show_close(self):
+        close_photo = PhotoImage(file='../resources/images/close_icon.png')
+
+        close_button = self.standard.create_nice_button('',
+                                                        self.root.destroy, close_photo, 80, 80)
+
+        self.canvas.create_window(1820, 10, anchor="nw", window=close_button)
+
 
 
 

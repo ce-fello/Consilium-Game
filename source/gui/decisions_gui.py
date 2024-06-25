@@ -13,11 +13,11 @@ class DecisionsGUI:
         self.canvas = canvas
         self.player = player
         self.standard_functions = StandardFunctions(self.root)
-        self.canvas.create_window(self.root.winfo_screenwidth() * 0.8, self.root.winfo_screenheight() * 0.01,
+        self.canvas.create_window(1540, self.root.winfo_screenheight() * 0.01,
                                   anchor="nw", window=self.economic_button())
-        self.canvas.create_window(self.root.winfo_screenwidth() * 0.85, self.root.winfo_screenheight() * 0.01,
+        self.canvas.create_window(1650, self.root.winfo_screenheight() * 0.01,
                                   anchor="nw", window=self.politic_button())
-        self.canvas.create_window(self.root.winfo_screenwidth() * 0.75, self.root.winfo_screenheight() * 0.01,
+        self.canvas.create_window(1430, self.root.winfo_screenheight() * 0.01,
                                   anchor="nw", window=self.government_button())
 
     def destroy_reference_data(self):
