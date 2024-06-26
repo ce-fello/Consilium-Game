@@ -1,8 +1,5 @@
 from standard_gui import StandardFunctions
-from customtkinter import *
 from tkinter import *
-from PIL import Image, ImageTk
-import numpy as np
 
 
 class StatsGUI:

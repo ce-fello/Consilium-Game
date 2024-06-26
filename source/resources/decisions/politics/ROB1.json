@@ -1,33 +1,25 @@
 {
-  "name": "tighten sanitary rules",
-  "name_ru": "ужесточить санитарные правила",
+  "name": "rely on business",
+  "name_ru": "ставка на бизнес",
   "conditions": [
     {
       "sector": "stability",
       "sector_code": "⚖",
-      "value": ">20"
+      "value": ">40"
     },
     {
       "sector": "services",
       "sector_code": "\uD83D\uDED2",
-      "proportion": ">40",
-      "value": ">50",
+      "proportion": "<60",
+      "value": "<150",
       "k_buff": "",
       "k_debuff": ""
     },
     {
       "sector": "industry",
       "sector_code": "\uD83D\uDD28",
-      "proportion": ">10",
-      "value": ">20",
-      "k_buff": "",
-      "k_debuff": ""
-    },
-    {
-      "sector": "healthcare",
-      "sector_code": "⛑",
-      "proportion": "<8",
-      "value": "",
+      "proportion": "<30",
+      "value": "<50",
       "k_buff": "",
       "k_debuff": ""
     }
@@ -36,35 +28,42 @@
     {
       "sector": "stability",
       "sector_code": "⚖",
-      "value": 3
+      "value": -5
     },
     {
       "sector": "services",
       "sector_code": "\uD83D\uDED2",
-      "value": -2,
-      "k_buff": 0.1,
-      "k_debuff": -0.05
+      "value": 5,
+      "k_buff": -0.05,
+      "k_debuff": 0.05
     },
     {
       "sector": "industry",
       "sector_code": "\uD83D\uDD28",
-      "value": -2,
-      "k_buff": 0.1,
-      "k_debuff": -0.05
+      "value": 5,
+      "k_buff": -0.05,
+      "k_debuff": 0.05
+    },
+    {
+      "sector": "education",
+      "sector_code": "\uD83D\uDCDA",
+      "value": -1,
+      "k_buff": 0,
+      "k_debuff": 0
     },
     {
       "sector": "healthcare",
-      "sector_code": "⛑",
-      "value": 5,
-      "k_buff": -0.05,
+      "sector_code": "\uD83D\uDCDA",
+      "value": -5,
+      "k_buff": 0.05,
       "k_debuff": 0
     },
     {
       "sector": "resources",
       "sector_code": "\uD83D\uDC8E",
-      "value": -2,
-      "k_buff": 0.05,
-      "k_debuff": -0.05
+      "value": 5,
+      "k_buff": -0.1,
+      "k_debuff": 0.1
     }
   ]
 }
