@@ -1,5 +1,6 @@
 from customtkinter import *
 from source.server.Decision import Decision
+from source.server.Player import Player
 from tkinter import *
 from os import listdir
 from os.path import isfile, join
@@ -7,12 +8,13 @@ from standard_gui import StandardFunctions
 
 
 class DecisionsGUI:
-    def __init__(self, root, canvas, player):
+    def __init__(self, root, canvas: Canvas, player: Player):
         self.reference_data = []
         self.root = root
         self.canvas = canvas
         self.player = player
-        self.standard_functions = StandardFunctions(self.root)
+        self.type_of_reference_data = 1
+        self.standard = StandardFunctions(self.root)
         self.canvas.create_window(1540, self.root.winfo_screenheight() * 0.01,
                                   anchor="nw", window=self.economic_button())
         self.canvas.create_window(1650, self.root.winfo_screenheight() * 0.01,
@@ -28,70 +30,85 @@ class DecisionsGUI:
 
     def economic_button(self):
         photo = PhotoImage(file='../resources/images/economic_icon.png')
-        press = self.standard_functions.create_nice_button('', self.show_economics_decisions, photo, 80, 80)
-        self.standard_functions.tooltip(press, 'Экономические решения')
+        press = self.standard.create_nice_button('', self.show_economics_decisions, photo, 80, 80)
+        self.standard.tooltip(press, 'Экономические решения')
         return press
 
     def show_economics_decisions(self):
+        self.type_of_reference_data = 2
         self.destroy_reference_data()
+        
         route = "../resources/decisions/economics/"
-        self.reference_data.append(self.standard_functions.create_nice_label('Экономические решения', 40, 320))
+        self.reference_data.append(self.standard.create_nice_label('Экономические решения', 40, 320))
+        
         decisions_names = [f for f in listdir(route) if isfile(join(route, f))]
         for i in decisions_names:
             decision = Decision(route + i, self.player)
-            decision_button = self.standard_functions.create_nice_button(decision.name_ru, decision.apply, None, 40, 400, 18)
-            self.standard_functions.tooltip(decision_button, decision.tooltip, False, 14)
+            decision_button = self.standard.create_nice_button(decision.name_ru, decision.apply, None, 40, 400, 18)
+            self.standard.tooltip(decision_button, decision.tooltip, False, 14)
             self.reference_data.append(decision_button)
+            
         self.canvas.create_window(1390, 120, anchor="nw", window=self.reference_data[0])
+        
         for i in range(1, len(self.reference_data)):
             self.canvas.create_window(1300, 120 + i * 50, anchor="nw", window=self.reference_data[i])
 
     def politic_button(self):
         photo = PhotoImage(file='../resources/images/politic_icon.png')
-        press = self.standard_functions.create_nice_button('', self.show_decisions, photo, 80, 80)
-        self.standard_functions.tooltip(press, 'Политические решения')
+        press = self.standard.create_nice_button('', self.show_decisions, photo, 80, 80)
+        self.standard.tooltip(press, 'Политические решения')
         return press
 
     def show_decisions(self):
+        self.type_of_reference_data = 3
         self.destroy_reference_data()
+        
         route = "../resources/decisions/politics/"
-        self.reference_data.append(self.standard_functions.create_nice_label('Политическое решения', 40, 320))
+        self.reference_data.append(self.standard.create_nice_label('Политическое решения', 40, 320))
+        
         decisions_names = [f for f in listdir(route) if isfile(join(route, f))]
         for i in decisions_names:
             decision = Decision(route + i, self.player)
-            decision_button = self.standard_functions.create_nice_button(decision.name_ru, decision.apply, None, 40, 400, 18)
-            self.standard_functions.tooltip(decision_button, decision.tooltip, False, 14)
+            decision_button = self.standard.create_nice_button(decision.name_ru, decision.apply, None, 40, 400, 18)
+            self.standard.tooltip(decision_button, decision.tooltip, False, 14)
             self.reference_data.append(decision_button)
+            
         self.canvas.create_window(1390, 120, anchor="nw", window=self.reference_data[0])
+        
         for i in range(1, len(self.reference_data)):
             self.canvas.create_window(1300, 120 + i * 50, anchor="nw", window=self.reference_data[i])
 
     def government_button(self):
         photo = PhotoImage(file='../resources/images/state_icon.png')
-        press = self.standard_functions.create_nice_button('', self.show_government_information, photo, 80, 80)
+        press = self.standard.create_nice_button('', self.show_government_information, photo, 80, 80)
         self.show_government_information()
-        self.standard_functions.tooltip(press, "Информация о государстве")
+        self.standard.tooltip(press, "Информация о государстве")
         return press
 
     def show_government_information(self):
+        self.type_of_reference_data = 1
         self.destroy_reference_data()
+        
         economics = self.player.economics
         self.update_proportions()
-        self.reference_data.append(self.standard_functions.create_nice_label('Информация о государстве', 40, 420))
-        self.reference_data.append(self.standard_functions.create_nice_label('Имя : ' + self.player.name, 40, 310))
-        self.reference_data.append(self.standard_functions.create_nice_label('⚖Стабильность ' +
+        self.reference_data.append(self.standard.create_nice_label('Информация о государстве', 40, 420))
+        self.reference_data.append(self.standard.create_nice_label('Имя : ' + self.player.name, 40, 310))
+        self.reference_data.append(self.standard.create_nice_label('⚖Стабильность ' +
                                                                              str(self.player.stability) + '%', 40, 310))
         for i in range(len(economics.sectors_name_ru)):
             sector = economics.sectors[economics.sectors_name[i]]
-            self.reference_data.append(self.standard_functions.create_nice_label(economics.sectors_codes[i] +
+            self.reference_data.append(self.standard.create_nice_label(economics.sectors_codes[i] +
                                                               economics.sectors_name_ru[i], 40, 250))
-            value = self.standard_functions.create_nice_button(sector.value, None, None, 40, 50, 18)
-            proportion = self.standard_functions.create_nice_button(str(sector.proportion) + '%', None, None, 40, 50, 18)
+            
+            value = self.standard.create_nice_button(sector.value, None, None, 40, 50, 18)
+            proportion = self.standard.create_nice_button(str(sector.proportion) + '%', None, None, 40, 50, 18)
             tooltip_text = str(sector.k_buff) + ' ⌃\n' + \
                            str(sector.k_debuff) + ' ⌄'
-            self.standard_functions.tooltip(value, tooltip_text, False)
+            
+            self.standard.tooltip(value, tooltip_text, False)
             self.reference_data.append(proportion)
             self.reference_data.append(value)
+            
         self.canvas.create_window(1400, 120, anchor="nw", window=self.reference_data[0])
         self.canvas.create_window(1450, 170, anchor="nw", window=self.reference_data[1])
         self.canvas.create_window(1450, 220, anchor="nw", window=self.reference_data[2])
@@ -110,4 +127,5 @@ class DecisionsGUI:
             sector = economics.sectors[economics.sectors_name[i]]
             sector.proportion = round(round(sector.value / capacity, 4) * 100, 2)
         economics.capacity = capacity
+
 

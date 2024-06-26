@@ -17,6 +17,7 @@ class GameUI:
     def __init__(self, game: Game, player: Player):
         self.player = player
         self.root = CTk()
+        self.game = game
 
         self.root.title('Consilium')
         self.root.geometry('600x350')
@@ -31,11 +32,19 @@ class GameUI:
         self.canvas.pack(fill="both", expand=True)
         self.canvas.create_image(0, 0, anchor="nw", image=bg_image)
 
-        TimeGUI(self.root, self.canvas, game)
         DecisionsGUI(self.root, self.canvas, self.player)
-        StatsGUI(self.root, self.canvas, self.player)
+        StatsGUI(self.root, self.canvas, self.player).show()
+        self.time_counter = TimeGUI(self.root, self.canvas, self.game, self.player)
+
+        self.root.after(500, self.update_date())
 
         self.root.mainloop()
+
+    def update_date(self):
+        self.time_counter.update_date()
+        self.game.time.mode = self.time_counter.Timer_mode.get()
+        self.root.update()
+        self.root.after(500, self.update_date)
 
 
 sectors_value = [100, 30, 10, 10, 25, 30]

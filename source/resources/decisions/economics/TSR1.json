@@ -1,11 +1,11 @@
 {
-  "name": "invest in education",
-  "name_ru": "инвестировать в образование",
+  "name": "tighten sanitary rules",
+  "name_ru": "ужесточить санитарные правила",
   "conditions": [
     {
       "sector": "stability",
       "sector_code": "⚖",
-      "value": ""
+      "value": ">20"
     },
     {
       "sector": "services",
@@ -16,7 +16,15 @@
       "k_debuff": ""
     },
     {
-      "sector": "education",
+      "sector": "industry",
+      "sector_code": "\uD83D\uDD28",
+      "proportion": ">10",
+      "value": ">20",
+      "k_buff": "",
+      "k_debuff": ""
+    },
+    {
+      "sector": "healthcare",
       "sector_code": "\uD83D\uDCDA",
       "proportion": "<8",
       "value": ">5",
@@ -28,42 +36,35 @@
     {
       "sector": "stability",
       "sector_code": "⚖",
-      "value": 1
+      "value": 3
     },
     {
       "sector": "services",
       "sector_code": "\uD83D\uDED2",
-      "value": -5,
-      "k_buff": 0.05,
-      "k_debuff": 0
+      "value": -2,
+      "k_buff": 0.1,
+      "k_debuff": -0.05
     },
     {
       "sector": "industry",
       "sector_code": "\uD83D\uDD28",
-      "value": 0,
-      "k_buff": 0.05,
-      "k_debuff": 0
-    },
-    {
-      "sector": "education",
-      "sector_code": "\uD83D\uDCDA",
-      "value": 3,
-      "k_buff": 0,
-      "k_debuff": 0
+      "value": -2,
+      "k_buff": 0.1,
+      "k_debuff": -0.05
     },
     {
       "sector": "healthcare",
-      "sector_code": "\uD83D\uDCDA",
-      "value": 0,
-      "k_buff": 0.05,
+      "sector_code": "⛑",
+      "value": 5,
+      "k_buff": -0.05,
       "k_debuff": 0
     },
     {
       "sector": "resources",
       "sector_code": "\uD83D\uDC8E",
-      "value": 0,
+      "value": -2,
       "k_buff": 0.05,
-      "k_debuff": 0
+      "k_debuff": -0.05
     }
   ]
 }
