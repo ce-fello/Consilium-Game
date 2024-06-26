@@ -30,19 +30,23 @@ class GameUI:
         self.canvas.pack(fill="both", expand=True)
         self.canvas.create_image(0, 0, anchor="nw", image=bg_image)
 
-        DecisionsGUI(self.root, self.canvas, self.player)
-        StatsGUI(self.root, self.canvas, self.player).show()
+        self.decisions = DecisionsGUI(self.root, self.canvas, self.game, self.player)
+        self.stats = StatsGUI(self.root, self.canvas, self.player)
         self.time_counter = TimeGUI(self.root, self.canvas, self.game, self.player)
 
-        self.root.after(500, self.update_date())
+        self.stats.show()
+
+        self.root.after(100, self.update_screen())
 
         self.root.mainloop()
 
-    def update_date(self):
+    def update_screen(self):
         self.time_counter.update_date()
         self.game.time.mode = self.time_counter.Timer_mode.get()
+        self.stats.update_stats()
+        self.decisions.update_reference_data()
         self.root.update()
-        self.root.after(500, self.update_date)
+        self.root.after(100, self.update_screen)
 
 
 sectors_value = [100, 30, 10, 10, 25, 30]

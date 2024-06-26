@@ -18,3 +18,11 @@ class Economics:
 
     def __str__(self):
         return f"SECTORS: {self.sectors}"
+
+    def update_sectors(self):
+        for i in range(len(self.sectors_name)):
+            sector = self.sectors[self.sectors_name[i]]
+            sector.value += round((sector.k_buff + (1 - sector.k_debuff)) / 10, 2)
+        for i in range(len(self.sectors_name)):
+            sector = self.sectors[self.sectors_name[i]]
+            sector.value = round(sector.value, 2)

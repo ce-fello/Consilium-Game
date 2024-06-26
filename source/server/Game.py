@@ -8,6 +8,8 @@ class Game:
         self.players = players
         self.map = map
         self.time = time
+        self.available_politic_decisions = True
+        self.available_economic_decisions = True
 
     def __str__(self):
         return f"PLAYERS: {self.players} MAP: {self.map.__str__()}"

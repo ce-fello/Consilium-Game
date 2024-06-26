@@ -17,8 +17,6 @@ class StatsGUI:
         self.show_close()
 
     def show_stability(self):
-        self.stability_button.destroy()
-        self.stability_button = self.make_stability_button()
         self.canvas.create_window(570, 10, anchor="nw", window=self.stability_button)
 
     def make_stability_button(self):
@@ -32,8 +30,6 @@ class StatsGUI:
         return stability_button
 
     def show_budget(self):
-        self.budget_button.destroy()
-        self.budget_button = self.make_budget_button()
         self.canvas.create_window(1200, 10, anchor="nw", window=self.budget_button)
 
     def make_budget_button(self):
@@ -43,7 +39,7 @@ class StatsGUI:
         for i in self.player.economics.sectors_name:
             budget += self.player.economics.sectors[i].value
 
-        budget_button = self.standard.create_nice_button(str(budget) + '💰', None, budget_photo, 80, 180)
+        budget_button = self.standard.create_nice_button(str(budget) + '💰', None, budget_photo, 80, 206)
 
         self.standard.tooltip(budget_button, 'валовой внутренний продукт')
 
@@ -58,6 +54,15 @@ class StatsGUI:
         self.standard.tooltip(close_button, 'закрыть игру')
 
         self.canvas.create_window(1820, 20, anchor="nw", window=close_button)
+
+    def update_stats(self):
+        self.stability_button.configure(text=str(self.player.stability) + '%')
+
+        budget = 0
+        for i in self.player.economics.sectors_name:
+            budget += self.player.economics.sectors[i].value
+        budget = round(budget, 2)
+        self.budget_button.configure(text=str(budget) + '💰')
 
 
 

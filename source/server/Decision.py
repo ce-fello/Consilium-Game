@@ -1,9 +1,10 @@
 import json
 from source.server.Player import Player
+from source.server.Game import Game
 
 
 class Decision:
-    def __init__(self, path, player: Player):
+    def __init__(self, path, player: Player, game: Game, form):
         self.sectors_name = ['services', 'industry', 'education', 'healthcare', 'military', 'resources']
         self.sectors_name_ru = ['Сфера услуг', 'Промышленность', 'Образование', 'Здравоохранение',
                                 'Военные расходы', 'Ресурсы']
@@ -12,6 +13,8 @@ class Decision:
         self.name = self.data['name']
         self.name_ru = self.data['name_ru']
         self.player = player
+        self.game = game
+        self.form = form
         self.tooltip = self.create_tooltip()
 
     def __str__(self):
@@ -58,7 +61,8 @@ class Decision:
         return True
 
     def apply(self):
-        if self.available():
+        if self.available() and ((self.form == 'politic' and self.game.available_politic_decisions) or
+                                 (self.form == 'economic' and self.game.available_economic_decisions)):
             stability_consequences = self.data["consequences"][0]
             if stability_consequences['value'] != 0:
                 self.player.stability += stability_consequences['value']
@@ -73,18 +77,22 @@ class Decision:
                 sector.value = round(sector.value, 2)
                 sector.k_buff = round(sector.k_buff, 2)
                 sector.k_debuff = round(sector.k_debuff, 2)
+            if self.form == 'politic':
+                self.game.available_politic_decisions = False
+            else:
+                self.game.available_economic_decisions = False
 
     def create_tooltip(self):
         text_tooltip = 'Условия\n'
         stability_condition = self.data['conditions'][0]
         if stability_condition['value'] != "":
-            text_tooltip += f' {stability_condition["sector_code"]}   {stability_condition["value"]}\n'
+            text_tooltip += f' {stability_condition["sector_code"]}   {stability_condition["value"]}%\n'
             text_tooltip += '---------\n'
         for i in self.data["conditions"][1:]:
             if i['proportion'] != "":
                 text_tooltip += f' {i["sector_code"]}  {i["proportion"]}%\n'
             if i["value"] != "":
-                text_tooltip += f' {i["sector_code"]}   {i["value"]}\n'
+                text_tooltip += f' {i["sector_code"]}   {i["value"]}💰\n'
             if i["k_buff"] != "":
                 text_tooltip += f' {i["sector_code"]}⌃ {i["k_buff"]}\n'
             if i["k_buff"] != "":
@@ -93,17 +101,17 @@ class Decision:
         text_tooltip += 'Изменения\n'
         stability_change = self.data['consequences'][0]
         if stability_change['value'] > 0:
-            text_tooltip += f' {stability_change["sector_code"]}   +{stability_change["value"]}\n'
+            text_tooltip += f' {stability_change["sector_code"]}   +{stability_change["value"]}%\n'
             text_tooltip += '---------\n'
         elif stability_change['value'] < 0:
-            text_tooltip += f' {stability_change["sector_code"]}   {stability_change["value"]}\n'
+            text_tooltip += f' {stability_change["sector_code"]}   {stability_change["value"]}%\n'
             text_tooltip += '---------\n'
         for i in self.data["consequences"][1:]:
             if i["value"] != 0:
                 if i['value'] > 0:
-                    text_tooltip += f' {i["sector_code"]}   +{i["value"]}\n'
+                    text_tooltip += f' {i["sector_code"]}   +{i["value"]}💰\n'
                 else:
-                    text_tooltip += f' {i["sector_code"]}   {i["value"]}\n'
+                    text_tooltip += f' {i["sector_code"]}   {i["value"]}💰\n'
             if i["k_buff"] != 0:
                 if i['k_buff'] > 0:
                     text_tooltip += f' {i["sector_code"]}⌃ +{i["k_buff"]}\n'
