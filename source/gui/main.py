@@ -49,10 +49,10 @@ class GameUI:
         self.root.after(100, self.update_screen)
 
 
-sectors_value = [100, 30, 10, 10, 25, 30]
+sectors_value = [100, 30, 10, 10, 5, 25]
 sectors_k_buff = [1, 1, 1, 1, 1, 0.8]
 sectors_k_debuff = [0.9, 0.9, 0.9, 1.1, 1.1, 0.9]
-example_player = Player(0, 'Боливия', 50, Economics(sectors_value, sectors_k_buff, sectors_k_debuff))
+example_player = Player(0, 'Боливия', 17, Economics(sectors_value, sectors_k_buff, sectors_k_debuff))
 timer = Time()
 map = Map([Cell(1, '', [1], '')])
 game = Game([example_player], map, timer)

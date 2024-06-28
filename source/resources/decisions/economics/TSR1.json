@@ -4,64 +4,49 @@
   "conditions": [
     {
       "sector": "stability",
-      "sector_code": "⚖",
       "value": ">20"
     },
     {
       "sector": "services",
-      "sector_code": "\uD83D\uDED2",
       "proportion": ">40",
-      "value": ">50",
-      "k_buff": "",
-      "k_debuff": ""
+      "value": ">50"
     },
     {
       "sector": "industry",
-      "sector_code": "\uD83D\uDD28",
       "proportion": ">10",
-      "value": ">20",
-      "k_buff": "",
-      "k_debuff": ""
+      "value": ">20"
     },
     {
       "sector": "healthcare",
-      "sector_code": "⛑",
       "proportion": "<8",
-      "value": "",
-      "k_buff": "",
-      "k_debuff": ""
+      "value": ""
     }
   ],
   "consequences": [
     {
       "sector": "stability",
-      "sector_code": "⚖",
       "value": 3
     },
     {
       "sector": "services",
-      "sector_code": "\uD83D\uDED2",
       "value": -2,
       "k_buff": 0.1,
       "k_debuff": -0.05
     },
     {
       "sector": "industry",
-      "sector_code": "\uD83D\uDD28",
       "value": -2,
       "k_buff": 0.1,
       "k_debuff": -0.05
     },
     {
       "sector": "healthcare",
-      "sector_code": "⛑",
       "value": 5,
       "k_buff": -0.05,
       "k_debuff": 0
     },
     {
       "sector": "resources",
-      "sector_code": "\uD83D\uDC8E",
       "value": -2,
       "k_buff": 0.05,
       "k_debuff": -0.05

@@ -44,20 +44,6 @@ class Decision:
                 else:
                     if self.player.economics.sectors[i["sector"]].value >= float(i["value"][1:]):
                         return False
-            if i["k_buff"] != "":
-                if i["k_buff"][0] == ">":
-                    if self.player.economics.sectors[i["sector"]].k_buff <= float(i["k_buff"][1:]):
-                        return False
-                else:
-                    if self.player.economics.sectors[i["sector"]].k_buff >= float(i["k_buff"][1:]):
-                        return False
-            if i["k_debuff"] != "":
-                if i["k_debuff"][0] == ">":
-                    if self.player.economics.sectors[i["sector"]].k_debuff <= float(i["k_debuff"][1:]):
-                        return False
-                else:
-                    if self.player.economics.sectors[i["sector"]].k_debuff >= float(i["k_debuff"][1:]):
-                        return False
         return True
 
     def apply(self):
@@ -86,42 +72,40 @@ class Decision:
         text_tooltip = 'Условия\n'
         stability_condition = self.data['conditions'][0]
         if stability_condition['value'] != "":
-            text_tooltip += f' {stability_condition["sector_code"]}   {stability_condition["value"]}%\n'
+            text_tooltip += f' ⚖   {stability_condition["value"]}%\n'
             text_tooltip += '---------\n'
         for i in self.data["conditions"][1:]:
+            sector = self.sectors_codes[self.sectors_name.index(i["sector"])]
             if i['proportion'] != "":
-                text_tooltip += f' {i["sector_code"]}  {i["proportion"]}%\n'
+                text_tooltip += f' {sector}  {i["proportion"]}%\n'
             if i["value"] != "":
-                text_tooltip += f' {i["sector_code"]}   {i["value"]}💰\n'
-            if i["k_buff"] != "":
-                text_tooltip += f' {i["sector_code"]}⌃ {i["k_buff"]}\n'
-            if i["k_buff"] != "":
-                text_tooltip += f' {i["sector_code"]}⌄ {i["k_debuff"]}\n'
+                text_tooltip += f' {sector}   {i["value"]}💰\n'
             text_tooltip += '---------\n'
         text_tooltip += 'Изменения\n'
         stability_change = self.data['consequences'][0]
         if stability_change['value'] > 0:
-            text_tooltip += f' {stability_change["sector_code"]}   +{stability_change["value"]}%\n'
+            text_tooltip += f' ⚖   +{stability_change["value"]}%\n'
             text_tooltip += '---------\n'
         elif stability_change['value'] < 0:
-            text_tooltip += f' {stability_change["sector_code"]}   {stability_change["value"]}%\n'
+            text_tooltip += f' ⚖   {stability_change["value"]}%\n'
             text_tooltip += '---------\n'
         for i in self.data["consequences"][1:]:
+            sector = self.sectors_codes[self.sectors_name.index(i["sector"])]
             if i["value"] != 0:
                 if i['value'] > 0:
-                    text_tooltip += f' {i["sector_code"]}   +{i["value"]}💰\n'
+                    text_tooltip += f' {sector}   +{i["value"]}💰\n'
                 else:
-                    text_tooltip += f' {i["sector_code"]}   {i["value"]}💰\n'
+                    text_tooltip += f' {sector}   {i["value"]}💰\n'
             if i["k_buff"] != 0:
                 if i['k_buff'] > 0:
-                    text_tooltip += f' {i["sector_code"]}⌃ +{i["k_buff"]}\n'
+                    text_tooltip += f' {sector}⌃ +{i["k_buff"]}\n'
                 else:
-                    text_tooltip += f' {i["sector_code"]}⌃ {i["k_buff"]}\n'
+                    text_tooltip += f' {sector}⌃ {i["k_buff"]}\n'
             if i["k_debuff"] != 0:
                 if i['k_debuff'] > 0:
-                    text_tooltip += f' {i["sector_code"]}⌄ +{i["k_debuff"]}\n'
+                    text_tooltip += f' {sector}⌄ +{i["k_debuff"]}\n'
                 else:
-                    text_tooltip += f' {i["sector_code"]}⌄ {i["k_debuff"]}\n'
+                    text_tooltip += f' {sector}⌄ {i["k_debuff"]}\n'
             text_tooltip += '---------\n'
 
         return text_tooltip

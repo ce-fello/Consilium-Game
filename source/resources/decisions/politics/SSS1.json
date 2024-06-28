@@ -1,0 +1,45 @@
+{
+  "name": "stabilize situation in the state",
+  "name_ru": "стабилизировать обстановку в государстве",
+  "conditions": [
+    {
+      "sector": "stability",
+      "value": "<20"
+    },
+    {
+      "sector": "military",
+      "proportion": "<10",
+      "value": "<8"
+    }
+  ],
+  "consequences": [
+    {
+      "sector": "stability",
+      "value": 8
+    },
+    {
+      "sector": "services",
+      "value": -2,
+      "k_buff": 0.05,
+      "k_debuff": -0.05
+    },
+    {
+      "sector": "industry",
+      "value": -2,
+      "k_buff": 0.05,
+      "k_debuff": -0.05
+    },
+    {
+      "sector": "healthcare",
+      "value": 3,
+      "k_buff": 0,
+      "k_debuff": 0
+    },
+    {
+      "sector": "military",
+      "value": 5,
+      "k_buff": 0,
+      "k_debuff": 0
+    }
+  ]
+}
