@@ -6,6 +6,7 @@ from tkinter import *
 from os import listdir
 from os.path import isfile, join
 from standard_gui import StandardFunctions
+from functools import partial
 
 
 class DecisionsGUI:
@@ -41,18 +42,17 @@ class DecisionsGUI:
         self.type_of_reference_data = 2
         self.destroy_reference_data()
         self.reference_decisions = []
-        
-        route = "../resources/decisions/economics/"
+
         self.reference_data.append(self.standard.create_nice_label('Экономические решения', 40, 320))
         self.reference_decisions.append('Title')
-        
-        decisions_names = [f for f in listdir(route) if isfile(join(route, f))]
-        for i in decisions_names:
-            decision = Decision(route + i, self.player, self.game, 'economic')
-            decision_button = self.standard.create_nice_button(decision.name_ru, decision.apply, None, 40, 400, 18)
-            if not decision.available() or not self.game.available_economic_decisions:
+
+        for decision in self.game.economic_decisions:
+            decision_button = self.standard.create_nice_button(decision.name_ru,
+                                                               partial(decision.apply, self.player, 'economic'), None, 40, 400, 18)
+            if not decision.available(self.player) or not self.player.available_economic_decisions:
                 decision_button.configure(text_color='#464646')
             self.standard.tooltip(decision_button, decision.tooltip, False, 14)
+
             self.reference_data.append(decision_button)
             self.reference_decisions.append(decision)
             
@@ -71,23 +71,21 @@ class DecisionsGUI:
         self.type_of_reference_data = 3
         self.destroy_reference_data()
         self.reference_decisions = []
-        
-        route = "../resources/decisions/politics/"
-        self.reference_data.append(self.standard.create_nice_label('Политическое решения', 40, 320))
+
+        self.reference_data.append(self.standard.create_nice_label('Политические решения', 40, 320))
         self.reference_decisions.append('Title')
-        
-        decisions_names = [f for f in listdir(route) if isfile(join(route, f))]
-        for i in decisions_names:
-            decision = Decision(route + i, self.player, self.game, 'politic')
-            decision_button = self.standard.create_nice_button(decision.name_ru, decision.apply, None, 40, 400, 18)
-            if not decision.available() or not self.game.available_politic_decisions:
+
+        for decision in self.game.politic_decisions:
+            decision_button = self.standard.create_nice_button(decision.name_ru,
+                                                               partial(decision.apply, self.player, 'politic'), None, 40, 400, 18)
+            if not decision.available(self.player) or not self.player.available_economic_decisions:
                 decision_button.configure(text_color='#464646')
             self.standard.tooltip(decision_button, decision.tooltip, False, 14)
             self.reference_data.append(decision_button)
             self.reference_decisions.append(decision)
-            
+
         self.canvas.create_window(1390, 120, anchor="nw", window=self.reference_data[0])
-        
+
         for i in range(1, len(self.reference_data)):
             self.canvas.create_window(1300, 120 + i * 50, anchor="nw", window=self.reference_data[i])
 
@@ -155,21 +153,23 @@ class DecisionsGUI:
                 self.reference_data[i + 2].configure(text=new_value)
         elif self.type_of_reference_data == 2:
             if self.game.time.update_decisions:
-                self.game.available_economic_decisions = True
-                self.game.available_politic_decisions = True
+                self.player.available_economic_decisions = True
+                self.player.available_politic_decisions = True
                 self.game.time.update_decisions = False
             for i in range(1, len(self.reference_data)):
-                if not self.reference_decisions[i].available() or not self.game.available_economic_decisions:
+                if not self.reference_decisions[i].available(self.player) or \
+                        not self.player.available_economic_decisions:
                     self.reference_data[i].configure(text_color='#464646')
                 else:
                     self.reference_data[i].configure(text_color='white')
         elif self.type_of_reference_data == 3:
             if self.game.time.update_decisions:
-                self.game.available_politic_decisions = True
-                self.game.available_economic_decisions = True
+                self.player.available_politic_decisions = True
+                self.player.available_economic_decisions = True
                 self.game.time.update_decisions = False
             for i in range(1, len(self.reference_data)):
-                if not self.reference_decisions[i].available() or not self.game.available_politic_decisions:
+                if not self.reference_decisions[i].available(self.player) or \
+                        not self.player.available_politic_decisions:
                     self.reference_data[i].configure(text_color='#464646')
                 else:
                     self.reference_data[i].configure(text_color='white')

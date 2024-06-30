@@ -1,10 +1,11 @@
 import json
 from source.server.Player import Player
-from source.server.Game import Game
+import copy
 
 
 class Decision:
-    def __init__(self, path, player: Player, game: Game, form):
+    def __init__(self, path):
+        self.path = path
         self.sectors_name = ['services', 'industry', 'education', 'healthcare', 'military', 'resources']
         self.sectors_name_ru = ['Сфера услуг', 'Промышленность', 'Образование', 'Здравоохранение',
                                 'Военные расходы', 'Ресурсы']
@@ -12,48 +13,45 @@ class Decision:
         self.data = json.load(open(path, 'r', encoding='utf-8'))
         self.name = self.data['name']
         self.name_ru = self.data['name_ru']
-        self.player = player
-        self.game = game
-        self.form = form
         self.tooltip = self.create_tooltip()
 
     def __str__(self):
-        return f"NAME {self.name} NAME_RU {self.name_ru}"
+        return f"NAME {self.name}"
 
-    def available(self):
+    def available(self, player: Player):
         stability_condition = self.data["conditions"][0]
         if stability_condition['value'] != '':
             if stability_condition['value'][0] == '>':
-                if self.player.stability <= float(stability_condition['value'][1:]):
+                if player.stability <= float(stability_condition['value'][1:]):
                     return False
             else:
-                if self.player.stability >= float(stability_condition['value'][1:]):
+                if player.stability >= float(stability_condition['value'][1:]):
                     return False
         for i in self.data["conditions"][1:]:
             if i["proportion"] != "":
                 if i["proportion"][0] == ">":
-                    if self.player.economics.sectors[i["sector"]].proportion <= float(i["proportion"][1:]):
+                    if player.economics.sectors[i["sector"]].proportion <= float(i["proportion"][1:]):
                         return False
                 else:
-                    if self.player.economics.sectors[i["sector"]].proportion >= float(i["proportion"][1:]):
+                    if player.economics.sectors[i["sector"]].proportion >= float(i["proportion"][1:]):
                         return False
             if i["value"] != "":
                 if i["value"][0] == ">":
-                    if self.player.economics.sectors[i["sector"]].value <= float(i["value"][1:]):
+                    if player.economics.sectors[i["sector"]].value <= float(i["value"][1:]):
                         return False
                 else:
-                    if self.player.economics.sectors[i["sector"]].value >= float(i["value"][1:]):
+                    if player.economics.sectors[i["sector"]].value >= float(i["value"][1:]):
                         return False
         return True
 
-    def apply(self):
-        if self.available() and ((self.form == 'politic' and self.game.available_politic_decisions) or
-                                 (self.form == 'economic' and self.game.available_economic_decisions)):
+    def apply(self, player: Player, form):
+        if self.available(player) and ((form == 'politic' and player.available_politic_decisions) or
+                                 (form == 'economic' and player.available_economic_decisions)):
             stability_consequences = self.data["consequences"][0]
             if stability_consequences['value'] != 0:
-                self.player.stability += stability_consequences['value']
+                player.stability += stability_consequences['value']
             for i in self.data["consequences"][1:]:
-                sector = self.player.economics.sectors[i["sector"]]
+                sector = player.economics.sectors[i["sector"]]
                 if i["value"] > 0:
                     sector.value += i["value"] * sector.k_buff
                 else:
@@ -63,10 +61,10 @@ class Decision:
                 sector.value = round(sector.value, 2)
                 sector.k_buff = round(sector.k_buff, 2)
                 sector.k_debuff = round(sector.k_debuff, 2)
-            if self.form == 'politic':
-                self.game.available_politic_decisions = False
-            else:
-                self.game.available_economic_decisions = False
+                if form == 'politic':
+                    player.available_politic_decisions = False
+                else:
+                    player.available_economic_decisions = False
 
     def create_tooltip(self):
         text_tooltip = 'Условия\n'
@@ -109,4 +107,7 @@ class Decision:
             text_tooltip += '---------\n'
 
         return text_tooltip
+
+    def copy(self):
+        return Decision(copy.copy(self.path))
 

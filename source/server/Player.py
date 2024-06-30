@@ -7,6 +7,8 @@ class Player:
         self.name = name
         self.stability = stability
         self.economics = economics
+        self.available_politic_decisions = True
+        self.available_economic_decisions = True
 
     def __str__(self):
         return f"ID: {self.id} NAME: {self.name} ECONOMICS {self.economics}"
